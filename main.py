@@ -27,14 +27,6 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     config={  # Swagger UI config overrides
         'app_name': "URL Shortener application"
     },
-    # oauth_config={  # OAuth config. See https://github.com/swagger-api/swagger-ui#oauth2-configuration .
-    #    'clientId': "your-client-id",
-    #    'clientSecret': "your-client-secret-if-required",
-    #    'realm': "your-realms",
-    #    'appName': "your-app-name",
-    #    'scopeSeparator': " ",
-    #    'additionalQueryStringParams': {'test': "hello"}
-    # }
 )
 
 

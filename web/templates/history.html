@@ -16,7 +16,7 @@
 {% block content %}
 <div class="row">
 
-  <div class="col-lg-4 col-xs-12  {{'d-none d-lg-block' if url}}">
+  <div class="col-lg-4 col-xs-12 {{'d-none d-lg-block' if all_data else 'visually-hidden' }}">
 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
   <div class="list-group">
     {% for item in all_data %}
@@ -35,16 +35,31 @@
 </div>
 
 
-<div class="col-lg-8 col-xs-12 mt-4">
+<div class="col-lg-8 col-xs-12 mt-4 {{'col-lg-12' if not all_data}}">
   <!-- <div class=" justify-content-center mt-3" style="min-height: 60vh;" > -->
+    {% if not all_data %}
+        <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+          <img width="300" src="{{url_for('static', filename='empty_list.png')}}" alt="">
+          
+          <h1 class="my-4">Empty</h1>
+          <a href="/" class="btn btn-primary"> Create new URL</a>
+        </div>
 
-    {% if url %}
+    {% elif url%}
 
     <div class="row gy-2 mt-3">
       
         <div class="col-12 d-flex justify-content-center">
-          <div class="">
+          <div style="position: relative;">
             <img src="{{ data.qr }}" width="300" class=" rounded float-end" alt="...">
+             <a href="{{data.qr}}" download target="_blank"
+             class="btn btn-outline-primary border-0 fw-bold" style="position: absolute; bottom:0; right:0;" 
+            >Save
+              <svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-1 h-1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m-6 3.75l3 3m0 0l3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
+              </svg>
+              
+            </a>
           </div>
         </div>
 

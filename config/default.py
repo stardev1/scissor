@@ -6,7 +6,7 @@ class Config(object):
     JWT_SECRET_KEY = "6E27E68DAD3C719FE2B9666D8462D"
     JWT_ACCESS_TOKEN_EXPIRES=timedelta(days=1)
     TEST = False
-    DEBUG = False
+    DEBUG = True
     CACHE_TYPE = "SimpleCache" # Flask-Caching related configs
     CACHE_DEFAULT_TIMEOUT = 300 # seconds
 
