@@ -7,47 +7,59 @@
     <link rel="icon" sizes="32x32" type="image/svg" href="{{ url_for('static', filename='icons/logo.svg')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/authStyle.css')}}">
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <title>Scissor - URL Shortener</title>
+    <title>Scissor - shorten links fast!</title>
 
     {% block styles %} {% endblock %}
 
 </head>
-<body class="gray-100" style="height: 100%; background-color: azure" >
-    <nav class="navbar bg-primary bg-gradient shadow" style="height:90px" data-bs-theme="dark">
-      <div class="container">
-        <a class="navbar-brand" href="/">
-          <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-          <span class="navbar-brand mb-0 h1 fw-bold">Scissor </span>
-        </a>
-        <!-- Navbar content -->
-        {% if current_user.is_authenticated %}
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/api/docs">API Docs</a>
-          </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/history">History</a>
-            </li>
-            <li class="nav-item">
-              <div class="dropdown text-end">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small">
-                  <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="/api/docs">API Docs</a></li>
-                  <li><a class="dropdown-item" href="/custom">Custom url</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{{url_for('webAuth.logout')}}">Sign out</a></li>
-                </ul>
-              </div>
-            </li>
-         </ul>
+<body class="gray-100" style="height: 100%; background-color: azure; overflow-x: hidden;" >
 
-        {% endif %}
-        </div>
-      </nav>
+  <header class="navbar navbar-expand-lg bd-navbar bg-primary sticky-top" style="height: 90px;" data-bs-theme="dark">
+    <nav class="container  navbar-expand{-sm|-md|-lg|-xl} bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+      <!-- <nav class="navbar bg-primary bg-gradient shadow" style="height:90px" data-bs-theme="dark"> -->
+        <!-- <div class="container"> -->
+          <a class="navbar-brand d-flex align-items-center gx-2" href="/">
+            <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="Logo" width="30" height="24" class="mr-2">
+            <span class="navbar-brand mb-0 h1 fw-bold d-flex" style="padding: 0 10px;"> Scissor <span class="d-none d-md-block">- shorten links fast!</span>  </span>
+          </a>
+          <!-- Navbar content -->
+          {% if current_user.is_authenticated %}
+          <div>
+
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/api/docs">API Docs</a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link text-white {{'text-muted' if request.path[0:8] != '/history'}}" aria-current="page" href="/history">History</a>
+              </li>
+              <li class="nav-item dropdown "">
+            
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <img src="{{url_for('static', filename="avatar.svg")}}" alt="user" width="24" height="24" class="rounded-circle">
+          
+                  </button>
+                
+                  <ul class="dropdown-menu dropdown-menu-start text-small" style="margin-left: -90px;">
+                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/api/docs">API Docs</a></li>
+                    <li><a class="dropdown-item" href="/custom">Custom url</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{url_for('webAuth.logout')}}">Sign out</a></li>
+                  </ul>
+                <!-- </div> -->
+              </li>
+           </ul>
+
+          </div>
+  
+          {% endif %}
+          <!-- </div> -->
+        <!-- </nav> -->
+    </nav>
+  </header>
+    
     <div class="container-fluid" style="min-height:calc(100vh - 120px)">
         {% block content %} {% endblock %}
     </div>

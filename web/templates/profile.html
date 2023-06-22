@@ -4,7 +4,7 @@
 
 <div class="d-flex flex-column justify-content-center align-items-center mt-3" style="min-height: calc(100vh - 120px);" >
   
-    <img height="100" src="https://ui-avatars.com/api/?name={{user.first_name + ' ' + user.last_name}}&rounded=true&background=random" alt="">
+    <img height="100" src="{{url_for('static', filename="avatar.png")}}" alt="">
     
     
     <form method="POST" action="/profile" class="mt-5">

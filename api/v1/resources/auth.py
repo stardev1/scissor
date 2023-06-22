@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_jwt_extended import create_access_token
 
+import re
+
 authRoute = Blueprint("auth", __name__)
 
 
@@ -21,6 +23,8 @@ def login():
             "status":"error",
             "message":'Required value not found',
         }), 422
+    
+
             
   
     user = Users.query.filter_by(email = auth.get('email')).first()
@@ -75,6 +79,12 @@ def signup():
     # gets name, email and password
     first_name, last_name, email = data.get('first_name'), data.get('last_name'), data.get('email')
     password = data.get('password')
+
+    if not re.match(r'^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', email):
+        return jsonify({
+            "stat": "error",
+            "message": "Email is not valid"
+            }), 422
 
     if first_name == None or last_name == None or email == None or password == None:
         return jsonify({

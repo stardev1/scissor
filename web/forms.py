@@ -8,7 +8,7 @@ from models.user import Users
 class LoginForm(FlaskForm):
     """ Form for login"""
     email = StringField("Email", validators= [
-        InputRequired(), Regexp(r'^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', message='Invalid URL')]
+        InputRequired(), Regexp(r'^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', message='Invalid email')]
     )
     password = PasswordField("Password", validators= [
         InputRequired(), Length(min=4, max=20)
@@ -25,7 +25,7 @@ class SignupForm(FlaskForm):
         InputRequired(), Length(min=3, max=20)
     ])
     email = StringField("Email", validators= [
-        InputRequired()
+        InputRequired(), Regexp(r'^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', message='Invalid email')
     ])
     password = PasswordField("Password", validators= [
         InputRequired(), Length(min=4, max=20)
@@ -51,7 +51,7 @@ class UpdateUserForm(FlaskForm):
         InputRequired(), Length(min=3, max=20)
     ])
     email = StringField("Email", validators= [
-        InputRequired()
+        InputRequired(), Regexp(r'^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$', message='Invalid email')
     ])
     password = PasswordField("Password", validators= [
            optional(), Length(min=4, max=20) 
