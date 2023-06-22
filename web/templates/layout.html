@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="32x32" type="image/svg" href="{{ url_for('static', filename='icons/logo.svg')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/authStyle.css')}}">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <title>Scissor - URL Shortener</title>
+
+    {% block styles %} {% endblock %}
+
+</head>
+<body class="gray-100" style="height: 100%; background-color: azure" >
+    <nav class="navbar bg-primary bg-gradient shadow" style="height:90px" data-bs-theme="dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+          <span class="navbar-brand mb-0 h1 fw-bold">Scissor </span>
+        </a>
+        <!-- Navbar content -->
+        {% if current_user.is_authenticated %}
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/api/docs">API Docs</a>
+          </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/history">History</a>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown text-end">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small">
+                  <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/api/docs">API Docs</a></li>
+                  <li><a class="dropdown-item" href="/custom">Custom url</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{{url_for('webAuth.logout')}}">Sign out</a></li>
+                </ul>
+              </div>
+            </li>
+         </ul>
+
+        {% endif %}
+        </div>
+      </nav>
+    <div class="container-fluid" style="min-height:calc(100vh - 120px)">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+<script src="{{url_for('static', filename='js/bootstrap.mini.js')}}"></script>
+
+{% block script %} 
+{% endblock %}
+
+</html>

@@ -1,0 +1,855 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0",
+    "title": "Scissor",
+    "description": "SCISSOR API\nThis API provides access to the functionality of the URL shortener, allowing users to create, manage, and track short URLs. The API provides endpoints for creating new short URLs, retrieving information about existing short URLs, and tracking the number of visitors for each short URL.",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Authenticate user using email and password",
+        "description": "Authenticate user using email and password",
+        "operationId": "post-login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register new user",
+        "operationId": "post-signup",
+        "requestBody": {
+          "description": " signup endpoint allows new users to create an account by providing their personal information such as name, email, and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "create_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "is_active": {
+                    "type": "boolean"
+                  },
+                  "update_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get User Info",
+        "description": "Retrieve the information of the authenticated user.",
+        "operationId": "get-users-userId",
+        "responses": {
+          "200": {
+            "description": "User Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "Get User Alice Smith": {
+                    "value": {
+                      "id": 142,
+                      "firstName": "Alice",
+                      "lastName": "Smith",
+                      "email": "alice.smith@gmail.com",
+                      "dateOfBirth": "1997-10-31",
+                      "emailVerified": true,
+                      "signUpDate": "2019-08-24"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Post ",
+        "description": "Create a new user with the provided information.",
+        "operationId": "post-user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "first_name",
+                  "last_name",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {},
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get Current User",
+        "description": "Retrieve the information of the current user.",
+        "operationId": "get-user",
+        "responses": {},
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/user/edit": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user info",
+        "description": "Update the information of the authenticated user.",
+        "operationId": "patch-user-edit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "user edit example": {
+                  "value": {
+                    "first_name": "string",
+                    "last_name": "string",
+                    "email": "string",
+                    "password": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete Auth user",
+        "description": "Delete the authenticated user.",
+        "operationId": "delete-user-delete",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "URLs"
+        ],
+        "summary": "Get all URLs",
+        "description": "Retrieve a list of all short URLs created by the current authenticated user.",
+        "operationId": "get-short_url",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          },
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/{url}": {
+      "get": {
+        "tags": [
+          "URLs"
+        ],
+        "summary": "Fetch URL details",
+        "description": "Retrieve the details of the specified short URL.",
+        "operationId": "get-url",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShortURL"
+              }
+            }
+          }
+        },
+        "responses": {},
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/{url}/visitors": {
+      "get": {
+        "tags": [
+          "URLs"
+        ],
+        "summary": "Fetch all Visitors",
+        "description": "Retrieve the number of visitors for the specified short URL.",
+        "operationId": "get-url",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/generate": {
+      "post": {
+        "tags": [
+          "URLs"
+        ],
+        "summary": "Generate new URL",
+        "description": "Create a new short URL for the specified long URL.",
+        "operationId": "post-generate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "custom_url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/{url}/edit": {
+      "patch": {
+        "tags": [
+          "URLs"
+        ],
+        "summary": "Update URL",
+        "description": "Update the specified short URL with new information.",
+        "operationId": "patch-url-edit",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "custom_url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/{url}/delete": {
+      "delete": {
+        "tags": [
+          "URLs"
+        ],
+        "summary": "Delete short URL",
+        "description": "Delete the specified short URL.",
+        "operationId": "delete-url-delete",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    },
+    "/{url}/visitors/": {
+      "get": {
+        "tags": [
+          "Visitors"
+        ],
+        "summary": "Gell all visitors",
+        "operationId": "get-url-visitors",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Visitors"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "API Key - 1": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "http://localhost:5000/api"
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication"
+    },
+    {
+      "name": "User",
+      "description": "Everything about your account"
+    },
+    {
+      "name": "URLs",
+      "description": "All the details regarding the URLs you generate"
+    },
+    {
+      "name": "Visitors",
+      "description": "All users who have utilized your shortened URLs"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "API Key - 1": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "title": "User",
+        "description": "The user model represents a user of the application. It contains information such as the user’s name, email, and password. The model also includes methods for authenticating the user and managing their account information.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the given user.",
+            "format": "uuid"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Set to true if the user's is active on the system."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date that the user was created.",
+            "format": "date"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The date that the user was created.",
+            "format": "date"
+          }
+        },
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "is_active"
+        ],
+        "x-examples": {
+          "Example 1": {
+            "id": "string",
+            "first_name": "john",
+            "last_name": "Smith",
+            "email": "john@gmail.com",
+            "created_at": "string",
+            "password": "string",
+            "updated_at": "string",
+            "is_active": true
+          }
+        }
+      },
+      "ShortURL": {
+        "type": "object",
+        "description": "The short URL model represents a shortened version of a long URL. It contains information such as the original long URL, the shortened URL, and the number of clicks. The model also includes methods for tracking the number of visitors and managing the short URL’s information.",
+        "properties": {
+          "clicks": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "is_custom": {
+            "type": "boolean"
+          },
+          "qr": {
+            "type": "string"
+          },
+          "short_url": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "is_custom",
+          "qr",
+          "short_url",
+          "url"
+        ],
+        "x-examples": {
+          "Example 1": {
+            "clicks": 0,
+            "created_at": "string",
+            "id": "string",
+            "is_custom": true,
+            "qr": "string",
+            "short_url": "string",
+            "updated_at": "string",
+            "url": "string",
+            "user_id": "string"
+          }
+        }
+      },
+      "Visitors": {
+        "type": "object",
+        "description": "The visitors model represents the number of visitors for a specific short URL. It contains information such as the short URL, the number of visitors, and the date and time of each visit. The model also includes methods for tracking the number of visitors and managing the visitor’s information.",
+        "properties": {
+          "agent_platform": {
+            "type": "string"
+          },
+          "agent_version": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ip_address": {
+            "type": "string"
+          },
+          "is_mobile": {
+            "nullable": true
+          },
+          "short_url_id": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "": {
+            "type": "string"
+          }
+        },
+        "x-examples": {
+          "Example 1": {
+            "agent_platform": "string",
+            "agent_version": "string",
+            "created_at": "string",
+            "id": "string",
+            "ip_address": "string",
+            "is_mobile": null,
+            "short_url_id": "string",
+            "updated_at": "string"
+          }
+        }
+      }
+    }
+  }
+}

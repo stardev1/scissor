@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div class="d-flex flex-column justify-content-center align-items-center mt-3" style="min-height: calc(100vh - 120px);" >
+  
+    <img height="100" src="https://ui-avatars.com/api/?name={{user.first_name + ' ' + user.last_name}}&rounded=true&background=random" alt="">
+    
+    
+    <form method="POST" action="/profile" class="mt-5">
+        {{ form.csrf_token }}
+       
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            {% if form.first_name.errors %}  
+               {% for error in form.first_name.errors %}
+               <p  class="text-danger">{{ error }}</p> 
+               {% endfor %}
+            {% endif %}
+            <div class="form-group form-floating pb-0 border bg-white">
+              {{form.first_name(class="form-control", id="floatingInput", placeholder="John")}}
+              <label for="floatingInput">First Name</label>
+            </div>
+
+          </div>
+          <div class="col-md-6 mb-4">
+            
+            {% if form.last_name.errors %}  
+               {% for error in form.last_name.errors %}
+               <p  class="text-danger">{{ error }}</p> 
+               {% endfor %}
+            {% endif %}
+            <div class="form-group form-floating pb-0 border bg-white">
+              {{form.last_name(class="form-control", id="floatingInput", placeholder="Doe")}}
+              <label for="floatingInput">Last Name</label>
+            </div>
+          </div>
+        </div>
+
+        <div class=" form-outline mb-4 pb-0">
+          {% if form.email.errors %}  
+               {% for error in form.email.errors %}
+               <p  class="text-danger">{{ error }}</p> 
+               {% endfor %}
+            {% endif %}
+          <div class="form-group form-floating pb-0 border bg-white">
+              {{form.email(class="form-control", id="floatingInput", placeholder="johndoe@gmail.com")}}
+              <label for="floatingInput">Email</label>
+          </div>
+        </div>
+
+        <div class=" form-outline mb-4">
+          {% if form.password.errors %}  
+               {% for error in form.password.errors %}
+               <p  class="text-danger">{{ error }}</p> 
+               {% endfor %}
+            {% endif %}
+          <div class="form-group form-floating pb-0 border bg-white">
+              {{form.password(class="form-control", id="floatingInput", placeholder=".....")}}
+              <label for="floatingInput">Password</label>
+          </div>
+        </div>
+
+        <div class=" form-outline mb-4">
+          {% if form.confirm_password.errors %}  
+               {% for error in form.confirm_password.errors %}
+               <p  class="text-danger">{{ error }}</p> 
+               {% endfor %}
+            {% endif %}
+          <div class="form-group form-floating pb-0 border bg-white">
+              {{form.confirm_password(class="form-control", id="floatingInput", placeholder="....")}}
+              <label for="floatingInput">Confirm Password</label>
+          </div>
+        </div>
+
+        
+
+        <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
+          Update
+        </button>
+    
+    <!-- <a href="#" class="btn btn-white mt-2" tabindex="-1" role="button" aria-disabled="true">Edit <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+      </svg>
+      </a>
+    <div class="row mt-4 gy-3">
+        <div class="col-12 bg-white rounded">
+            <small>First Name</small>
+            <p class="h1">{{user.first_name}}</p>
+        </div>
+
+        <div class="col-12 bg-white rounded">
+            <small>Last Name</small>
+            <p class="h1">{{user.last_name}}</p>
+        </div>
+
+        <div class="col-12 bg-white rounded">
+            <small>Email Name</small>
+            <p class="h1">{{user.email}}</p>
+        </div>
+    </div> -->
+    
+ 
+        
+    
+      
+ 
+</div>
+
+{% endblock %}

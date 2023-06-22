@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+  
+<style>
+
+  @media only screen and (max-width: 768px) {
+    .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  </style>
+
+ {% endblock %}
+
+{% block content %}
+
+<div class="row w-md-50 justify-content-center">
+
+
+<div class=" col-11 col-md-9 col-lg-8 col-xl-7 col-xxl-6  d-flex flex-column justify-content-center align-items-center mt-3" style="min-height: calc(100vh - 120px);" >
+  
+    
+        
+    <form class="row w-100" action="{{request.path}}" method="POST">
+
+      <div class="col">
+
+        {{ form.csrf_token }}
+        
+        {% if form.url.errors %}
+        <ul class="errors">
+          {% for error in form.url.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+
+        {% if form.custom_url.errors %}
+        <ul class="errors">
+          {% for error in form.custom_url.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      
+          <!-- <label for="url" class="visually-hidden"></label> -->
+          <div class="d-flex flex-column flex-md-row input-group input-group-lg mb-3">
+            
+            <div class="form-group form-floating text-muted">
+              <label for="url" style="margin-top: -13px;"> <small> Full Url </small> </label>
+            {{ form.url(class="form-control", id="url", placeholder="Your long url") }}
+            </div>
+            
+            {% if request.path == '/custom' %}
+            <div class="form-group form-floating text-muted">
+              <label for="custom_url" style="margin-top: -13px;"> <small>Custom Url</small> </label>
+            {{ form.custom_url(class="form-control", id="custom_url", placeholder="Customize your url")  }}
+              </div>
+
+              {% endif %}
+            <button class="btn btn-primary" type="submit" id="submit_button">
+              
+              <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              <span class="spinner-border spinner-border-sm visually-hidden" id="form_loading" role="status" aria-hidden="true"></span>
+                <span class="fw-bold" id="form_title">
+                  Shorten
+                </span>
+              
+              </button>
+            </div>
+
+            
+
+            <div class="width-100">
+              
+              {% if request.path == '/custom' %}
+              <a href="/" class="uppercase float-end link-underline-light">auto generate short url</a>
+              {% else %}
+              <a href="{{url_for('webShortUrl.index')}}" class="uppercase float-end link-underline-light">Create custom url</a>
+              {% endif %}
+            </div>
+      </form>
+      <div class="mt-4 w-100">
+        <div class="d-flex justify-content-between fw-bold">
+
+          <p>Recent Link</p>
+          <p>{{ daily_limits['message'] }}</p>
+        </div>
+        <hr>
+     
+       
+        <!-- <div class="list-group"> -->
+          {% for item in data %}
+        
+          <a href="{{url_for('webShortUrl.short_url_page', url=item.short_url)}}" class="card mb-3 link-underline-light block">
+            <div class="row g-0">
+              <div class="col-3 col-md-2">
+                <img src="{{item.qr}}" width="90" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-9 col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title text-truncate">{{item.short_url.upper()}}</h5>
+                  <p class="card-text mb-0 text-truncate">{{item.url}}</p>
+                </div>
+              </div>
+            </div>
+          </a>
+  
+          {% endfor %}
+          
+        <!-- </div> -->
+
+    </div>
+ 
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+  <script>
+
+   document.getElementById("submit_button").onclick = function() {
+    console.log(document.getElementById("url_input"));
+     if(document.getElementById("url").value != "") {
+      //  console.log("got");
+      document.getElementById("form_title").classList.add("visually-hidden");
+      document.getElementById("form_loading").classList.remove("visually-hidden");
+        document.getElementById("submit_button").classList.add("disabled");
+      }
+    // docuemnt.getElementById("form_loading").classList.remove("visually-hidden");
+   }
+
+  </script>
+{% endblock %}
