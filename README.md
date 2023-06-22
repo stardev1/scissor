@@ -1,4 +1,4 @@
-# Scissor API  
+# Scissor URL - Shortener
 
  This repository provides access to the functionality of the URL shortener, allowing users to create, manage, and track short URLs. The API provides endpoints for creating new short URLs, retrieving information about existing short URLs, and tracking the number of visitors for each short URL.
 
