@@ -18,7 +18,7 @@
     <nav class="container  navbar-expand{-sm|-md|-lg|-xl} bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
           <a class="navbar-brand d-flex align-items-center gx-2" href="/">
             <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="Logo" width="30" height="24" class="mr-2">
-            <span class="navbar-brand mb-0 h1 fw-bold d-flex" style="padding: 0 10px;"> Scissor <span class="d-none d-md-block">- shorten links fast!</span>  </span>
+            <span class="navbar-brand mb-0 h1 fw-bold d-flex" style="padding: 0 10px;"> Scissor <span class="d-none d-md-block" style="padding: 0 5px;"> - shorten links fast!</span>  </span>
           </a>
           <!-- Navbar content -->
           {% if current_user.is_authenticated %}
