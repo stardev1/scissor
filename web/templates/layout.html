@@ -14,10 +14,8 @@
 </head>
 <body class="gray-100" style="height: 100%; background-color: azure; overflow-x: hidden;" >
 
-  <header class="navbar navbar-expand-lg bd-navbar bg-primary sticky-top" style="height: 90px;" data-bs-theme="dark">
+  <header class="navbar navbar-expand-lg bd-navbar bg-primary sticky-top shadow" style="height: 90px;" data-bs-theme="dark">
     <nav class="container  navbar-expand{-sm|-md|-lg|-xl} bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
-      <!-- <nav class="navbar bg-primary bg-gradient shadow" style="height:90px" data-bs-theme="dark"> -->
-        <!-- <div class="container"> -->
           <a class="navbar-brand d-flex align-items-center gx-2" href="/">
             <img src="{{ url_for('static', filename='icons/logo.svg') }}" alt="Logo" width="30" height="24" class="mr-2">
             <span class="navbar-brand mb-0 h1 fw-bold d-flex" style="padding: 0 10px;"> Scissor <span class="d-none d-md-block">- shorten links fast!</span>  </span>
@@ -48,16 +46,12 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{url_for('webAuth.logout')}}">Sign out</a></li>
                   </ul>
-                <!-- </div> -->
               </li>
            </ul>
 
           </div>
   
           {% endif %}
-          <!-- </div> -->
-        <!-- </nav> -->
-    </nav>
   </header>
     
     <div class="container-fluid" style="min-height:calc(100vh - 120px)">
