@@ -109,6 +109,11 @@ API Usage
 *   To get all visitors for a specific short URL, use the following endpoint:
     *   `GET /api/{url}/visitors/`: Get all visitors
 
+## Unit testing
+
+`python -m pytest`
+
+
 Contributing
 ------------
 
