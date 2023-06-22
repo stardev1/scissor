@@ -1,3 +1,5 @@
+![logo](web/static/icons/logo.svg)
+
 # Scissor URL - Shortener
 
  This repository provides access to the functionality of the URL shortener, allowing users to create, manage, and track short URLs. The API provides endpoints for creating new short URLs, retrieving information about existing short URLs, and tracking the number of visitors for each short URL.
@@ -8,6 +10,10 @@
 Follow the instructions below to set up and run the Scissor API on your local machine.  
 
 ### Prerequisites  - Flask (version 2.3.2) - Python (version ^3.9)  
+
+## Demo
+
+![Home page](demo/Home.jpeg)
 
 
 ### Getting Started  
